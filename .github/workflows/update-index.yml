@@ -1,0 +1,40 @@
+name: Update index.html with last push date
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch all history for accurate date
+
+      - name: Get last commit date
+        id: get-date
+        run: |
+          last_commit_date=$(git log -1 --pretty=format:"%ad" --date=iso)
+          echo "::set-output name=last_commit_date::$last_commit_date"
+
+      - name: Update index.html
+        id: update-html
+        run: |
+          # Читаем существующий index.html
+          existing_html=$(cat index.html)
+
+          # Добавляем новую строку с датой
+          new_html="${existing_html}<br>Last push: ${{ steps.get-date.outputs.last_commit_date }}"
+
+          # Записываем обновленный index.html
+          echo "$new_html" > index.html
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add index.html
+          git commit -m "Update index.html with last push date"
+          git push origin main
