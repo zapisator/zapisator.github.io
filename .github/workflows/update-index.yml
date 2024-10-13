@@ -17,5 +17,6 @@ jobs:
           ls -la ${{ github.workspace }}
       - name: view index.html contets
         run: |
+          echo $(git log -1 --pretty=format:"%ad" --date=iso) >> index.html
           cat index.html
       - run: echo "🍏 This job's status is ${{ job.status }}."
