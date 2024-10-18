@@ -43,16 +43,22 @@ jobs:
           env
       - name: Install dependencies
         run: |
+          pwd
+          ls -al                    
           echo "Installing dependencies..."
           npm install
           echo "Dependencies installed."
       - name: Build Next.js app
         run: |
+          pwd
+          ls -al          
           echo "Building Next.js app..."
           npm run build
           echo "Next.js app built."
       - name: Export Next.js app
         run: |
+          pwd
+          ls -al          
           echo "Exporting Next.js app..."
           npm run export
           echo "Next.js app exported."
