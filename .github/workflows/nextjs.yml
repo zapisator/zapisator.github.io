@@ -19,43 +19,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Print current directory after checkout
-        run: |
-          echo "Current directory after checkout:"
-          pwd
-          ls -al
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: './my-app'
-      - name: Print Node.js version
-        run: node -v
-      - name: Print npm version
-        run: npm -v
-      - name: Print environment variables
-        run: |
-          echo "Environment variables:"
-          env
+          cache-dependency-path: ./my-app
       - name: Install dependencies
-        run: |
-          pwd
-          ls -al                    
-          echo "Installing dependencies..."
-          npm install
-          echo "Dependencies installed."
+        run: npm install
       - name: Build Next.js app
-        run: |
-          pwd
-          ls -al          
-          echo "Building Next.js app..."
-          npm run build
-          echo "Next.js app built."
-      - name: List files in out directory
-        run: |
-          echo "Files in out directory:"
-          ls -al out
+        run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -64,6 +37,6 @@ jobs:
           retention-days: 1
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 
+        uses: actions/deploy-pages@v4
         with:
           artifact_name: nextjs-site
