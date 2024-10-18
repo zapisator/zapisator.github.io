@@ -15,25 +15,50 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
+      - name: Print current directory after checkout
+        run: |
+          echo "Current directory after checkout:"
+          pwd
+          ls -al
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: npm
-
+      - name: Print Node.js version
+        run: node -v
+      - name: Print npm version
+        run: npm -v
       - name: Navigate to project directory
-        run: cd my-app
-
+        run: |
+          echo "Changing to directory: my-app"
+          cd my-app
+          echo "Current directory after changing:"
+          pwd
+          ls -al
+      - name: Print environment variables
+        run: |
+          echo "Environment variables:"
+          env
       - name: Install dependencies
-        run: npm install
-
+        run: |
+          echo "Installing dependencies..."
+          npm install
+          echo "Dependencies installed."
       - name: Build Next.js app
-        run: npm run build
-
+        run: |
+          echo "Building Next.js app..."
+          npm run build
+          echo "Next.js app built."
       - name: Export Next.js app
-        run: npm run export
-
+        run: |
+          echo "Exporting Next.js app..."
+          npm run export
+          echo "Next.js app exported."
+      - name: List files in out directory
+        run: |
+          echo "Files in out directory:"
+          ls -al out
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
