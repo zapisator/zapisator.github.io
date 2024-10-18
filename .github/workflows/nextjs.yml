@@ -23,13 +23,6 @@ jobs:
           echo "Current directory after checkout:"
           pwd
           ls -al
-      - name: Navigate to project directory
-        run: |
-          echo "Changing to directory: my-app"
-          cd my-app
-          echo "Current directory after changing:"
-          pwd
-          ls -al          
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
